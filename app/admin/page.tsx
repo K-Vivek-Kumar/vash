@@ -1,112 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import Head from "next/head";
+import useToken from "@/lib/useToken";
+import { useEffect, useState } from "react";
 
-const AdminPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [adminEmail, setAdminEmail] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
+function Profile() {
+  const { token } = useToken();
+  const [profileData, setProfileData] = useState(null);
 
-  const handleLogin = (e: any) => {
-    e.preventDefault();
-    // Implement your login logic using 'email' and 'password' states
-    console.log("Login:", { email, password });
-  };
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/admin-home", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  const handleAddAdmin = async () => {
-    // Implement your add admin logic using 'adminEmail' and 'adminPassword' states
-    console.log("Add Admin:", { adminEmail, adminPassword });
-  };
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile data");
+        }
+
+        const data = await response.json();
+        setProfileData(data.admin);
+      } catch (error: any) {
+        console.error("Error fetching profile data:", error.message);
+      }
+    };
+
+    if (token) {
+      fetchProfileData();
+    }
+  }, [token]);
 
   return (
-    <div className="min-h-screen bg-green-900 text-white flex justify-center items-center">
-      <Head>
-        <title>Admin Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-
-      <div className="p-8 bg-green-700 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl mb-6 text-center">Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded bg-green-800 text-white focus:outline-none focus:ring focus:ring-green-200"
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block mb-2">
-              Password:
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded bg-green-800 text-white focus:outline-none focus:ring focus:ring-green-200"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-green-600 hover:bg-green-500 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-green-200"
-          >
-            Login
-          </button>
-        </form>
-
-        <div className="mt-8 border-t border-green-800 pt-6">
-          <h2 className="text-2xl mb-4 text-center">Add Admin</h2>
-          <div className="mb-4">
-            <label htmlFor="admin_email" className="block mb-2">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="admin_email"
-              name="admin_email"
-              value={adminEmail}
-              onChange={(e) => setAdminEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded bg-green-800 text-white focus:outline-none focus:ring focus:ring-green-200"
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="admin_password" className="block mb-2">
-              Password:
-            </label>
-            <input
-              type="password"
-              id="admin_password"
-              name="admin_password"
-              value={adminPassword}
-              onChange={(e) => setAdminPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded bg-green-800 text-white focus:outline-none focus:ring focus:ring-green-200"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={handleAddAdmin}
-            className="w-full bg-green-600 hover:bg-green-500 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-green-200"
-          >
-            Add Admin
-          </button>
+    <div className="Profile">
+      <h2>Profile</h2>
+      {profileData ? (
+        <div>
+          <p>Name: {profileData}</p>
         </div>
-      </div>
+      ) : (
+        <p>Loading profile...</p>
+      )}
     </div>
   );
-};
+}
 
-export default AdminPage;
+export default Profile;
