@@ -1,7 +1,7 @@
 "use client";
-// Login.js
+
 import useToken from "@/components/useToken";
-import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function Login() {
@@ -16,7 +16,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/admin-login", {
+      const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function Login() {
       const data = await response.json();
       if (data && data.access_token) {
         setToken(data.access_token);
-        router.push("/admin"); // Redirect to admin page upon successful login
+        router.push("/");
       }
     } catch (error: any) {
       console.error("Error logging in:", error.message);
@@ -60,7 +60,7 @@ function Login() {
       <form className="login" onSubmit={logMeIn}>
         <input
           onChange={handleChange}
-          type="email"
+          type="text"
           name="email"
           placeholder="Email"
           value={loginForm.email}
