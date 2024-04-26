@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AddressSelector from "./Address";
+import PhoneNumberUpdate from "./PhoneNumber";
 
 export interface User {
   id: number;
@@ -41,6 +43,8 @@ const Profile = () => {
           <p>Email: {userData.email}</p>
           <p>Created: {userData.created_at}</p>
           <p>Phone Number: {userData.phone_number}</p>
+          <AddressSelector />
+          <PhoneNumberUpdate />
         </div>
       ) : (
         <p>Loading...</p>
