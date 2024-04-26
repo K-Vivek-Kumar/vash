@@ -4,6 +4,7 @@ import useToken from "@/components/useToken";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AdminStats from "./Statistics";
 
 function Profile() {
   const { token } = useToken();
@@ -56,6 +57,7 @@ function Profile() {
       ) : (
         <p>Loading profile...</p>
       )}
+      <AdminStats />
     </div>
   );
 }
