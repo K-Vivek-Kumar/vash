@@ -1,6 +1,6 @@
 "use client";
 
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
 import { useEffect, useState } from "react";
 
 function Profile() {

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PDFGeneratorButton from "./GenerateReceipt";
+import UserNav from "@/components/UserNav";
 
 interface Order {
   order_id: number;
@@ -41,40 +42,61 @@ const PendingOrders: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Pending Orders</h1>
-      {orders.length === 0 ? (
-        <p>No pending orders found.</p>
-      ) : (
-        <ul>
-          {orders.map((order) => (
-            <li key={order.order_id}>
-              <PDFGeneratorButton
-                orderId={order.order_id}
-                productName={order.product_name}
-              />
-              <strong>Order ID:</strong> {order.order_id}
-              <br />
-              <strong>Product ID:</strong> {order.product_id}
-              <br />
-              <strong>Product Name:</strong> {order.product_name}
-              <br />
-              <strong>Status:</strong> {order.status}
-              <br />
-              <strong>Cash on Delivery:</strong>{" "}
-              {order.cash_on_delivery ? "Yes" : "No"}
-              <br />
-              <strong>Date of Order:</strong> {order.date_of_order}
-              <br />
-              <strong>Date of Delivery:</strong> {order.date_of_delivery}
-              <br />
-              <strong>Price:</strong> ${order.price}
-              <br />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <UserNav />
+      <h1 className="text-2xl font-bold m-4">Pending Orders</h1>
+      <div className="w-full mx-auto p-4 overflow-x-scroll">
+        {orders.length === 0 ? (
+          <p>No pending orders found.</p>
+        ) : (
+          <table className="table-auto w-full">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Order ID</th>
+                <th className="px-4 py-2">Product ID</th>
+                <th className="px-4 py-2">Product Name</th>
+                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Cash on Delivery</th>
+                <th className="px-4 py-2">Date of Order</th>
+                <th className="px-4 py-2">Date of Delivery</th>
+                <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.order_id} className="border-b border-gray-200">
+                  <td className="px-4 py-2">{order.order_id}</td>
+                  <td className="px-4 py-2">{order.product_id}</td>
+                  <td className="px-4 py-2">{order.product_name}</td>
+                  <td className="px-4 py-2">
+                    {order.status == 1 ? "Waiting for dispatch" : ""}
+                    {order.status == 2 ? "Dispatched" : ""}
+                    {order.status == 3 ? "Delivered" : ""}
+                  </td>
+                  <td className="px-4 py-2">
+                    {order.cash_on_delivery ? "Yes" : "No"}
+                  </td>
+                  <td className="px-4 py-2">{order.date_of_order}</td>
+                  <td className="px-4 py-2">{order.date_of_delivery}</td>
+                  <td className="px-4 py-2">${order.price}</td>
+                  <td className="px-4 py-2">
+                    {order.status === 3 ? (
+                      <PDFGeneratorButton
+                        orderId={order.order_id}
+                        productName={order.product_name}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
   );
 };
 export default PendingOrders;

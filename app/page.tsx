@@ -1,32 +1,31 @@
 "use client";
 
-import UserNav from "@/components/UserNav";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import UserNav from "@/components/UserNav";
 import ProductCard from "../components/ProductCard";
 
-type product = {
+type Product = {
   id: number;
   name: string;
-  price: string;
+  price: number;
   description: string;
 };
 
 function Products() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPrevPage, setHasPrevPage] = useState(false);
-  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [currentPage]);
+  }, [currentPage, searchQuery]);
 
-  const fetchProducts = async (page: Number) => {
+  const fetchProducts = async (page: number) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/products?page=${page}`
+        `http://127.0.0.1:5000/products?page=${page}&q=${searchQuery}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch products");
@@ -35,8 +34,8 @@ function Products() {
       setProducts(data.products);
       setHasNextPage(data.has_next);
       setHasPrevPage(data.has_prev);
-    } catch (error) {
-      console.error("Error fetching products:", error);
+    } catch (error: any) {
+      alert("Error fetching products");
     }
   };
 
@@ -52,22 +51,45 @@ function Products() {
     }
   };
 
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setCurrentPage(1); // Reset to first page when performing a new search
+    fetchProducts(1); // Fetch products for the first page with the new search query
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <UserNav />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Products</h1>
 
+        <form onSubmit={handleSearch} className="mb-8">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by name or description"
+            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+          />
+          <button
+            type="submit"
+            className="ml-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Search
+          </button>
+        </form>
+
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products.map((product: product) => (
+          {products.map((product) => (
             <ProductCard
               key={product.id}
               id={product.id}
               name={product.name}
-              price={parseInt(product.price)}
+              price={product.price}
             />
           ))}
         </div>
+
         <div className="mt-12 flex justify-evenly items-center cursor-pointer">
           <button
             onClick={handlePrevPage}

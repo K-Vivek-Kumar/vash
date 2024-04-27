@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
+import RetailerNavbar from "@/components/RetailerNav";
 
 const ProductUpload = () => {
   const { token } = useToken();
@@ -44,89 +45,92 @@ const ProductUpload = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center">Product Upload</h2>
+    <>
+      <RetailerNavbar />
+      <div className="max-w-lg mx-auto p-16">
+        <h2 className="text-2xl font-bold mb-4 text-center">Product Upload</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="number"
-          name="quantity"
-          placeholder="Quantity"
-          value={formData.quantity}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={formData.category}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="text"
-          name="subCategory"
-          placeholder="Sub-Category"
-          value={formData.subCategory}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="text"
-          name="company"
-          placeholder="Company"
-          value={formData.company}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        ></textarea>
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="number"
-          name="discount"
-          placeholder="Discount"
-          value={formData.discount}
-          onChange={handleChange}
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Upload Product
-        </button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Product Name"
+            value={formData.name}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            value={formData.category}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input
+            type="text"
+            name="subCategory"
+            placeholder="Sub-Category"
+            value={formData.subCategory}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input
+            type="text"
+            name="company"
+            placeholder="Company"
+            value={formData.company}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          ></textarea>
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input
+            type="number"
+            name="discount"
+            placeholder="Discount"
+            value={formData.discount}
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Upload Product
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

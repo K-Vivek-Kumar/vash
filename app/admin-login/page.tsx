@@ -1,6 +1,7 @@
 "use client";
 // Login.js
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
+import LoginNav from "@/components/LoginNav";
 import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
 import { useState } from "react";
 
@@ -34,7 +35,7 @@ function Login() {
       const data = await response.json();
       if (data && data.access_token) {
         setToken(data.access_token);
-        router.push("/admin"); // Redirect to admin page upon successful login
+        router.push("/admin");
       }
     } catch (error: any) {
       console.error("Error logging in:", error.message);
@@ -55,26 +56,47 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form className="login" onSubmit={logMeIn}>
-        <input
-          onChange={handleChange}
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={loginForm.email}
-        />
-        <input
-          onChange={handleChange}
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={loginForm.password}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <>
+      <LoginNav />
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-full max-w-xs">
+          <h1 className="text-2xl mb-4 text-center">Login</h1>
+          <form
+            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+            onSubmit={logMeIn}
+          >
+            <div className="mb-4">
+              <input
+                onChange={handleChange}
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={loginForm.email}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                onChange={handleChange}
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={loginForm.password}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   );
 }
 

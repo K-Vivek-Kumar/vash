@@ -2,7 +2,7 @@
 
 import ProductPage from "@/components/EachProductPage";
 import UserNav from "@/components/UserNav";
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

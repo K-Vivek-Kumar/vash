@@ -25,6 +25,7 @@ const AddressSelector = () => {
         setAddresses(response.data.Addresses);
       } catch (error: any) {
         console.error("Error fetching addresses:", error.message);
+        router.push("/");
       }
     };
 
@@ -50,55 +51,69 @@ const AddressSelector = () => {
           },
         }
       );
-      if (response.status) {
-        router.refresh();
-      }
+      alert("Done! try reloading");
+      router.refresh();
     } catch (error: any) {
-      console.error("Error adding address:", error.message);
+      alert("Error");
+      router.push("/profile");
     }
   };
 
   return (
-    <div>
-      <h2>All Addresses</h2>
-      {addresses.length > 0 ? (
-        <ul>
-          {addresses.map((address) => (
-            <li key={address.id}>
-              {address.address}, {address.city}, {address.postal_code}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No addresses found.</p>
-      )}
+    <>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="max-w-md w-full bg-white shadow-md rounded px-8 py-6 mb-8">
+          <h2 className="text-3xl font-semibold mb-4">All Addresses</h2>
+          {addresses.length > 0 ? (
+            <ul>
+              {addresses.map((address) => (
+                <li key={address.id}>
+                  {address.address}, {address.city}, {address.postal_code}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No addresses found.</p>
+          )}
+        </div>
 
-      <h2>Add Address</h2>
-      <div>
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={newAddress.address}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={newAddress.city}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="postal_code"
-          placeholder="Postal Code"
-          value={newAddress.postal_code}
-          onChange={handleInputChange}
-        />
-        <button onClick={handleAddAddress}>Add Address</button>
+        <div className="max-w-md w-full bg-white shadow-md rounded px-8 py-6 mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Add Address</h2>
+          <div className="space-y-4">
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={newAddress.address}
+              onChange={handleInputChange}
+              className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={newAddress.city}
+              onChange={handleInputChange}
+              className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="text"
+              name="postal_code"
+              placeholder="Postal Code"
+              value={newAddress.postal_code}
+              onChange={handleInputChange}
+              className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={handleAddAddress}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Add Address
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

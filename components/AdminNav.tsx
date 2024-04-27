@@ -55,34 +55,17 @@ const RetailerNavbar = () => {
           </a>
         </Link>
         <div className="ml-4">
-          <Link href="/inventory" legacyBehavior passHref>
+          <Link href="/admin/add" legacyBehavior passHref>
             <a className="text-white bg-green-600 px-4 py-2 rounded-lg mr-4">
-              Inventory
-            </a>
-          </Link>
-          <Link href="/product-upload" legacyBehavior passHref>
-            <a className="text-white bg-green-600 px-4 py-2 rounded-lg">
-              Product Upload
+              Add Admin
             </a>
           </Link>
         </div>
       </div>
       <div>
-        {isLoggedIn ? (
-          <>
-            <div>Logged In</div>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 rounded-md bg-blue-500 text-white mr-4"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <Link href="/retailer-login" legacyBehavior passHref>
-            <a className="px-4 py-2 rounded-md bg-blue-500 text-white">Login</a>
-          </Link>
-        )}
+        <Link href="/admin-login" legacyBehavior passHref>
+          <a className="px-4 py-2 rounded-md bg-blue-500 text-white">Login</a>
+        </Link>
       </div>
     </nav>
   );

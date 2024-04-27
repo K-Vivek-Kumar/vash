@@ -1,27 +1,26 @@
 "use client";
 
-import useToken from "@/components/useToken";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AdminStats from "./Statistics";
+import AdminNav from "@/components/AdminNav";
 
 function Profile() {
-  const { token } = useToken();
   const [profileData, setProfileData] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        if (!token) {
+        if (!localStorage.getItem("token")) {
           router.push("/admin-login");
           return;
         }
 
         const response = await axios.get("http://127.0.0.1:5000/admin-home", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -45,20 +44,23 @@ function Profile() {
     };
 
     fetchProfileData();
-  }, [token, router]);
+  }, []);
 
   return (
-    <div className="Profile">
-      <h2>Profile</h2>
-      {profileData ? (
-        <div>
-          <p>Name: {profileData}</p>
-        </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
-      <AdminStats />
-    </div>
+    <>
+      <AdminNav />
+      <div className="Profile">
+        <h2 className="text-3xl font-bold m-4">Profile</h2>
+        {profileData ? (
+          <div className="m-4">
+            <div className="text-md font-semibold">Name: {profileData}</div>
+          </div>
+        ) : (
+          <p>Loading profile...</p>
+        )}
+        <AdminStats />
+      </div>
+    </>
   );
 }
 

@@ -35,8 +35,11 @@ const PDFGeneratorButton = (props: {
   };
 
   return (
-    <button onClick={handleGeneratePDF}>
-      Generate PDF for Order {props.orderId}
+    <button
+      className="bg-green-500 text-white rounded-lg p-2"
+      onClick={handleGeneratePDF}
+    >
+      Generate Receipt
     </button>
   );
 };

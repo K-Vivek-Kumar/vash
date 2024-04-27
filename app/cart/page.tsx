@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
 import axios from "axios";
 import UserNav from "@/components/UserNav";
 
@@ -57,24 +57,29 @@ const Cart = () => {
   }, [token]);
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <UserNav />
-      <h1>Shopping Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div>
-          {cartItems.map((item: CartItem, index: number) => (
-            <div key={index}>
-              <h3>{item.name}</h3>
-              <p>Category: {item.category}</p>
-              <p>Description: {item.description}</p>
-              <p>Price: ${item.price}</p>
-              <p>Quantity: {item.quantity}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold mb-4">Shopping Cart</h1>
+        {cartItems.length === 0 ? (
+          <p className="text-lg">Your cart is empty.</p>
+        ) : (
+          <div>
+            {cartItems.map((item: CartItem, index: number) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md p-4 mb-4"
+              >
+                <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
+                <p className="mb-2">Category: {item.category}</p>
+                <p className="mb-2">Description: {item.description}</p>
+                <p className="mb-2">Price: ${item.price}</p>
+                <p className="mb-2">Quantity: {item.quantity}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

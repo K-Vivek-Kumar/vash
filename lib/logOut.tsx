@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import useToken from "@/components/useToken";
+import useToken from "@/app/useToken";
 
 const logout = async () => {
   const { token, removeToken } = useToken();

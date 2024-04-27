@@ -32,9 +32,12 @@ const AddressSelector = ({
   };
 
   return (
-    <div>
-      <h2>Select Address</h2>
-      <select onChange={(e) => handleAddressSelect(parseInt(e.target.value))}>
+    <div className="bg-white p-6 rounded shadow-md">
+      <h2 className="text-lg font-bold mb-4">Select Address</h2>
+      <select
+        className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        onChange={(e) => handleAddressSelect(parseInt(e.target.value))}
+      >
         <option value="">Select an address</option>
         {addresses.map((address) => (
           <option key={address.id} value={address.id}>
