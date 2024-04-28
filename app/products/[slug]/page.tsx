@@ -52,6 +52,10 @@ const ProductDetail = ({ params }: { params: { slug: string } }) => {
 
   const [quantity, setQuantity] = useState(1);
 
+  const handleCheckOut = () => {
+    router.push(`/products/${params.slug}/order-preview`);
+  };
+
   const handleAddToCart = async () => {
     try {
       const response = await axios.post(
@@ -97,6 +101,7 @@ const ProductDetail = ({ params }: { params: { slug: string } }) => {
         sub_category={product.sub_category}
         add_cart={handleAddToCart}
         discount={product.discount}
+        product_checkout={handleCheckOut}
       />
     </>
   );

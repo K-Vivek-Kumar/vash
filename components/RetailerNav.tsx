@@ -16,14 +16,11 @@ const RetailerNavbar = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        if (!token) {
-          return;
-        }
         const response = await axios.get(
           "http://127.0.0.1:5000/current-retailer",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -39,7 +36,7 @@ const RetailerNavbar = () => {
     };
 
     fetchProfileData();
-  }, [token]);
+  }, []);
 
   const handleLogout = () => {
     logout();

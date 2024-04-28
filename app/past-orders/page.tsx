@@ -60,7 +60,7 @@ const PendingOrders: React.FC = () => {
                 <th className="px-4 py-2">Date of Order</th>
                 <th className="px-4 py-2">Date of Delivery</th>
                 <th className="px-4 py-2">Price</th>
-                <th className="px-4 py-2">Actions</th>
+                <th className="px-4 py-2">Receipt</th>
               </tr>
             </thead>
             <tbody>
@@ -85,6 +85,9 @@ const PendingOrders: React.FC = () => {
                       <PDFGeneratorButton
                         orderId={order.order_id}
                         productName={order.product_name}
+                        price={order.price}
+                        dateOfOrder={order.date_of_order}
+                        dateOfDelivery={order.date_of_delivery}
                       />
                     ) : (
                       <></>

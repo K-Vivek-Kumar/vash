@@ -25,6 +25,18 @@ const Footer = () => {
           <ul className="flex flex-wrap justify-center">
             <li
               className="cursor-pointer m-4"
+              onClick={() => handleNavigation("/admin")}
+            >
+              Admin
+            </li>
+            <li
+              className="cursor-pointer m-4"
+              onClick={() => handleNavigation("/inventory")}
+            >
+              Inventory
+            </li>
+            <li
+              className="cursor-pointer m-4"
               onClick={() => handleNavigation("/retailer-login")}
             >
               Retailer Login

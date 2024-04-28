@@ -10,6 +10,7 @@ const ProductPage = (props: {
   category: string;
   sub_category: string;
   add_cart: Function;
+  product_checkout: Function;
 }) => {
   return (
     <section className="overflow-hidden text-gray-600 body-font">
@@ -81,6 +82,12 @@ const ProductPage = (props: {
               onClick={() => props.add_cart()}
             >
               Add to Cart
+            </button>
+            <button
+              className="block w-full px-6 py-2 mx-auto my-8 text-white uppercase bg-black border border-black rounded-full hover:bg-white hover:text-black"
+              onClick={() => props.product_checkout()}
+            >
+              Order Now
             </button>
 
             <hr className="my-4" />

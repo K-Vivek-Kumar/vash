@@ -44,6 +44,8 @@ const InventoryTable = () => {
   return (
     <div className="min-h-screen">
       <RetailerNavbar />
+
+      <RetailerOrders />
       <h1 className="text-2xl font-bold text-center my-8">Inventory</h1>
       <div className="container mx-auto overflow-x-scroll">
         <table className="min-w-full table-auto">
@@ -95,7 +97,6 @@ const InventoryTable = () => {
           </tbody>
         </table>
       </div>
-      <RetailerOrders />
     </div>
   );
 };
