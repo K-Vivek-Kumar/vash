@@ -31,6 +31,7 @@ function Products() {
         throw new Error("Failed to fetch products");
       }
       const data = await response.json();
+      console.log("Products: ", products);
       setProducts(data.products);
       setHasNextPage(data.has_next);
       setHasPrevPage(data.has_prev);

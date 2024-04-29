@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PDFGeneratorButton from "./GenerateReceipt";
 import UserNav from "@/components/UserNav";
+import { useRouter } from "next/navigation";
 
 interface Order {
   order_id: number;
@@ -18,6 +19,7 @@ interface Order {
 
 const PendingOrders: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -70,6 +72,17 @@ const PendingOrders: React.FC = () => {
                   <td className="px-4 py-2">{order.product_id}</td>
                   <td className="px-4 py-2">{order.product_name}</td>
                   <td className="px-4 py-2">
+                    {order.status == 0 ? (
+                      <button
+                        onClick={() => {
+                          router.push(`/past-orders/${order.order_id}`);
+                        }}
+                      >
+                        Make Payment
+                      </button>
+                    ) : (
+                      ""
+                    )}
                     {order.status == 1 ? "Waiting for dispatch" : ""}
                     {order.status == 2 ? "Dispatched" : ""}
                     {order.status == 3 ? "Delivered" : ""}

@@ -38,9 +38,9 @@ const ProductUpload = () => {
           },
         }
       );
-      console.log(response.data);
+      alert(response.data);
     } catch (error: any) {
-      console.error("Error uploading product:", error.message);
+      alert("Error uploading product");
     }
   };
 

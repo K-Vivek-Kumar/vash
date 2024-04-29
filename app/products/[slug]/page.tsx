@@ -71,9 +71,9 @@ const ProductDetail = ({ params }: { params: { slug: string } }) => {
           },
         }
       );
-      console.log(response.data);
+      alert("Added");
     } catch (error: any) {
-      console.error("Error adding to cart:", error.message);
+      alert("Error adding to cart");
     }
   };
 
